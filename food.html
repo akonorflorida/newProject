@@ -1,0 +1,16 @@
+<div ng-controller="foodCtrl">
+    <h1>Menu</h1>
+    {{list}}
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        <tr ng-repeat="f in list">
+            <td>{{f.id}}</td>
+            <td>{{f.name}}</td>
+            <td>{{f.price}}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        nav{
+            border: solid;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav a{
+            text-decoration: none;
+        }
+
+        nav a:hover{
+            font-weight: bold;
+            color: green;
+            background-color: aquamarine;
+        }
+
+        div{
+            width: 50%;
+            margin: 50px auto;
+        }
+
+        .error{
+            color: red;
+        }
+        footer{
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body ng-app="myApp">
+    <nav>
+        <a href="#/!">Home</a>
+        <a href="#!Product">Product List</a>
+        <a href="#!Add">Add New Product</a>
+        <a href="#!About">About Us</a>
+    </nav>
+    
+    <div ng-view></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular-route.js"></script>
+    <script>
+        var app = angular.module("myApp", ['ngRoute']);
+        app.config(function($routeProvider) {
+            $routeProvider
+            .when("/",{
+                templateUrl:"home.html"
+            })
+            .when("/Product",{
+                templateUrl:"listProduct.html"
+            })
+            .when("/Add",{
+                templateUrl:"addProduct.html"
+            })
+            .when("/About",{
+                templateUrl:"about.html"
+            });
+        });
+
+        app.run(function($rootScope, $http){
+            $http.get("product.json").then(function(rsp){
+                $rootScope.list = rsp.data.productList;
+            })
+        })
+
+        app.controller("foodCtrl", function($scope){
+
+        })
+
+        app.controller("addCtrl", function($scope){
+            $scope.addPro = function(){
+                var newPro = {"ID": $scope.myID, "Name": $scope.myName, "Price": $scope.myPrice};
+                $scope.list.push(newPro);
+                alert("Add new product successfully")
+            }
+        })
+    </script>
+    <footer>&#169;Copyright Fpt Aptech</footer>
+</body>
+</html>

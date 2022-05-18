@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S2-Simple App</title>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <input type="text" ng-model="name"> <br>
+    Your name is {{name}} <br>
+    Hello <span ng-bind="name"></span> <br>
+    Password: {{password}} <button ng-click="changePassword()">Click here to change password</button><br>
+    <input ng-model="name" ng-change="changeCounter()">
+    Counter: {{counter}} <br>
+    <button ng-mousedown="count=count+1">Click here</button> <br>
+    Count: {{count}}
+
+    <script  src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController",function($scope){
+            $scope.name = "Khoa";
+            $scope.password=123;
+            $scope.counter=0;
+            $scope.count=0;
+            $scope.changePassword=function(){
+                if($scope.password==123){
+                    $scope.password=456;
+                }
+                else {
+                    $scope.password=123;
+                }
+            }
+            $scope.changeCounter = function(){
+            $scope.counter += 1;
+        }
+        })
+        
+    </script>
+
+</body>
+</html>
